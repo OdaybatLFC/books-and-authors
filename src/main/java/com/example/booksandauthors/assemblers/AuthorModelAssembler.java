@@ -6,8 +6,6 @@ import com.example.booksandauthors.entities.Book;
 import com.example.booksandauthors.models.AuthorModel;
 import com.example.booksandauthors.models.BookModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -24,12 +22,6 @@ public class AuthorModelAssembler extends RepresentationModelAssemblerSupport<Au
     @Override
     public AuthorModel toModel(Author entity) {
         AuthorModel authorModel = instantiateModel(entity);
-
-        authorModel.add(linkTo
-                (methodOn(AuthorController.class)
-                        .getAuthorById(entity.getId()))
-                .withSelfRel());
-
         authorModel.setFirstName(entity.getFirstName());
         authorModel.setLastName(entity.getLastName());
         authorModel.setBooks(toBookModel(entity.getBooks()));

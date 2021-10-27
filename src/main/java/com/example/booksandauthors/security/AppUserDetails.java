@@ -1,22 +1,20 @@
-package com.example.booksandauthors.config;
+package com.example.booksandauthors.security;
 
-import com.example.booksandauthors.entities.Author;
+import com.example.booksandauthors.entities.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
-public class AuthorUserDetails implements UserDetails {
+public class AppUserDetails implements UserDetails {
 
-    private Author user;
-    private List<GrantedAuthority> authorities;
+    private User user;
+    private Set<? extends GrantedAuthority> authorities;
 
-    public AuthorUserDetails(Author user) {
+    public AppUserDetails(User user) {
         this.user = user;
-        this.authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole().name()));
+        this.authorities = UserRole.valueOf(user.getRole()).getGrantedAuthorities();
     }
 
     @Override
@@ -34,15 +32,15 @@ public class AuthorUserDetails implements UserDetails {
         return this.user.getUsername();
     }
 
-    public Author getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Author user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public void setAuthorities(List<GrantedAuthority> authorities) {
+    public void setAuthorities(Set<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 

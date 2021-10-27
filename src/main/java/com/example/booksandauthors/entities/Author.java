@@ -1,32 +1,16 @@
 package com.example.booksandauthors.entities;
 
-import com.example.booksandauthors.config.UserRole;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.example.booksandauthors.config.UserRole.*;
-
 @Entity
+@Table(name = "authors")
 public class Author {
 
     @Id
-    @GeneratedValue
+    @Column(name = "user_id")
     private long id;
-
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Transient
-    private UserRole role = AUTHOR; // by default
-
-    public String getUsername() {
-        return username;
-    }
 
     @Column(nullable = false)
     private String firstName;
@@ -42,14 +26,26 @@ public class Author {
     )
     private Set<Book> books = new HashSet<>();
 
-    public Author(String firstName, String lastName) {
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Author(String firstName, String lastName, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.user = user;
     }
 
-    public Author() {
-
-    }
+    public Author() {}
 
     public long getId() {
         return id;
@@ -81,26 +77,6 @@ public class Author {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
 }

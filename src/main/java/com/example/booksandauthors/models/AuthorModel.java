@@ -1,6 +1,5 @@
 package com.example.booksandauthors.models;
 
-import com.example.booksandauthors.entities.Book;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;

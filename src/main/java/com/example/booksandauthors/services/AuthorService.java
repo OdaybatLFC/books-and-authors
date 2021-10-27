@@ -1,13 +1,12 @@
 package com.example.booksandauthors.services;
 
 import com.example.booksandauthors.entities.Author;
-import com.example.booksandauthors.entities.Book;
 import com.example.booksandauthors.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorService {
@@ -28,8 +27,9 @@ public class AuthorService {
     }
 
     public Author findAuthor(long id)  {
-        return authorRepository.findById(id).get();
-   }
+        Optional<Author> author = authorRepository.findById(id);
+        return author.orElse(null);
+    }
 
     public Author removeAuthor(long id) {
         Author author = this.findAuthor(id);

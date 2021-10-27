@@ -1,4 +1,4 @@
-package com.example.booksandauthors.config;
+package com.example.booksandauthors.security;
 
 public enum UserPermission {
     BOOK_ADD("book:add"),
